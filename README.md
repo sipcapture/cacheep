@@ -5,6 +5,17 @@
 This App exposes [LRU-CACHE](https://www.npmjs.com/package/lru-cache) via a simple Express REST API.<br>
 Data is used to manage a real-time blacklist _(or anything, really)_ feeding an ENUM/DNS server.
 
+### Usage
+```
+npm install
+npm start
+```
+##### Custom Parameters
+```
+sudo MAX=100000 PORT=53 FILE='./data.json' npm start
+```
+
+
 ### Example
 ##### Block Destination for 60 seconds
 ```
