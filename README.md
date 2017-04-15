@@ -2,9 +2,7 @@
 
 # CACHEEP: LRU-CACHE API + ENUM DNS Server
 
-Cacheep exposes [LRU-CACHE](https://www.npmjs.com/package/lru-cache) via a simple Express REST API,<br>
-happily accepting and managing simple key/values pairs or full JSON objects with custom expiration.<br>
-Data can be used to manage a real-time blacklist _(or anything, really)_ feeding an ENUM/DNS server and more.
+Cacheep exposes [LRU-CACHE](https://www.npmjs.com/package/lru-cache) via a simple Express REST API, happily accepting and managing simple key/values pairs or full JSON objects with custom expirations for purging. Stored data can be used to manage a real-time blacklist _(or anything, really)_ feeding an ENUM/DNS server and more.
 
 ### Usage
 ```
