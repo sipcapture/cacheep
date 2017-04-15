@@ -12,15 +12,15 @@ This App exposes [LRU-CACHE](https://www.npmjs.com/package/lru-cache) via a simp
 
 | Call  	    | Format  	| Response  |
 |---	    |---	|---  |
-| ```SET```  	  | ```/api/set/{key}/{value}```  	| ```{status}``` |
+| ```SET```  	  | ```/api/set/{key}/{value}/{seconds * 1000}```  	| ```{status}``` |
 | ```GET```  	  | ```/api/get/{key}```  	| ```{value}``` |
 | ```UNSET```  	| ```/api/unset/{key}```  	| ```{status}``` |
 
 
 ### Example
-##### Block
+##### Block for 60 seconds
 ```
-curl http://127.0.0.1:3000/api/set/4416329600/blocked
+curl http://127.0.0.1:3000/api/set/4416329600/blocked/60000
 
 ```
 ##### Un-Block
