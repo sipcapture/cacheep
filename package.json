@@ -1,0 +1,25 @@
+{
+  "name": "enum-lru-blacklist",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node app",
+    "start:dev": "DEBUG=* nodemon app"
+  },
+  "dependencies": {
+    "debug": "^2.6.3",
+    "express": "^4.15.2",
+    "body-parser": "1.17.1",
+    "lru-cache": "^4.0.2",
+    "node-dns": "^0.1.0",
+    "morgan": "^1.8.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.18.0",
+    "eslint-config-standard": "^7.1.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^2.1.1",
+    "nodemon": "^1.11.0"
+  }
+}
