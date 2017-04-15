@@ -74,4 +74,7 @@ curl http://127.0.0.1:3000/api/get/10.20.30.40
 * Express Auth
 * Refine API
 * ENUM Params from Cache
-* GunDB Support
+
+## ROADMAP 
+
+* GunDB Support _(distribution, two-way updates)_
