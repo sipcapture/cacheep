@@ -39,12 +39,16 @@ dig -t NAPTR 0.0.6.9.2.3.6.1.4.4.e164.arpa @127.0.0.1
 ---------
 
 ### Statup Options
-* ```PORT```: Express API Port _(default: 3000)_
-* ```MAX```:  LRU Max Cache Size _(default: 10000)_
-* ```FILE```:  LRU Cache File _(default: disabled)_
-* ```DNS_PORT```:  DNS Server Port _(default: 54)_
-* ```DNS_HOST```:  DNS Server Host _(default: 127.0.0.1)_
-* ```DNS_ROOT```:  DNS Lookup Root _(default: e164.arpa)_
+
+| ENV  	    | Description  	| Notes  |
+|---	           |---	  |---  |
+| ```PORT```     | Express API Port   | _(default: 3000)_      |
+| ```MAX```      | LRU Max Cache Size | _(default: 10000)_     |
+| ```FILE```     | LRU Cache File     | _(default: disabled)_  |
+| ```DNS_PORT``` | DNS Server Port    | _(default: 54)_        |
+| ```DNS_HOST``` | DNS Server Host    | _(default: 127.0.0.1)_ |
+| ```DNS_ROOT``` | DNS Lookup Root    | _(default: e164.arpa)_ |
+
 
 ### API Calls
 
