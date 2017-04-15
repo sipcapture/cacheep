@@ -33,8 +33,8 @@ dig -t NAPTR 0.0.6.9.2.3.6.1.4.4.e164.arpa @127.0.0.1
 ##### Block IP for 60 seconds w/ JSON Body
 ```
 curl -X POST -H "Content-type: application/json" \
-  -d '{"ttl": 10000, "message": "scanner"}' \
-  http://127.0.0.1:3000/api/set/10.20.30.40
+  -d '{"message": "scanner"}' \
+  http://127.0.0.1:3000/api/set/10.20.30.40/60000
   ```
 ##### Un-Block IP
 ```
