@@ -10,9 +10,10 @@ var fs = require('fs');
 var savePath = process.env.FILE;
     // Reload Cache
     if (savePath){
-	if (fs.existsSync('./data.json')) {
-	    console.log('Found backup');
+	if (fs.existsSync(savePath)) {
+	    console.log('FILE: Found backup!');
 		fs.readFile(savePath, 'utf8', function (err, data) {
+			if (!data) return;
 			cache.load(JSON.parse(data));
 		});
 	}
@@ -23,10 +24,12 @@ process.on('SIGINT', function() {
     if (savePath){
    	fs.writeFile (savePath, JSON.stringify(cache.dump()), function(err) {
                 if (err) throw err;
-                console.log('dump complete! Exiting...');
+                console.log('FILE: dump complete!');
+		console.log('Exiting...');
     		process.exit();
         });
     } else {
+		console.log('Exiting...');
     		process.exit();
     }
 });
