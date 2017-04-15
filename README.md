@@ -27,6 +27,10 @@ curl http://127.0.0.1:3000/api/set/4416/blocked/60000
 curl http://127.0.0.1:3000/api/unset/4416
 
 ```
+##### Check Destionation
+```
+curl http://127.0.0.1:3000/api/get/4416329600
+```
 
 #### ENUM Lookup
 ```
