@@ -2,8 +2,9 @@
 
 # LRU-CACHE + ENUM DNS Server + API
 
-This App exposes [LRU-CACHE](https://www.npmjs.com/package/lru-cache) via a simple Express REST API.<br>
-Data is used to manage a real-time blacklist _(or anything, really)_ feeding an ENUM/DNS server.
+This App exposes [LRU-CACHE](https://www.npmjs.com/package/lru-cache) via a simple Express REST API,<br>
+happily accepting and managing simple key/values pairs or full JSON objects with custom expiration.<br>
+Data can be used to manage a real-time blacklist _(or anything, really)_ feeding an ENUM/DNS server and more.
 
 ### Usage
 ```
@@ -16,26 +17,34 @@ sudo MAX=100000 PORT=53 FILE='./data.json' npm start
 ```
 
 
-### Example
+### ENUM Example
 ##### Block Destination for 60 seconds
 ```
 curl http://127.0.0.1:3000/api/set/4416/blocked/60000
-
 ```
-##### Un-Block Destionation
-```
-curl http://127.0.0.1:3000/api/unset/4416
-
-```
-##### Check Destionation
-```
-curl http://127.0.0.1:3000/api/get/4416329600
-```
-
 #### ENUM Lookup
 ```
 dig -t NAPTR 0.0.6.9.2.3.6.1.4.4.e164.arpa @127.0.0.1
 ```
+---------
+
+### IP Example
+
+##### Block IP for 60 seconds w/ JSON Body
+```
+curl -X POST -H "Content-type: application/json" \
+  -d '{"ttl": 10000, "message": "scanner"}' \
+  http://127.0.0.1:3000/api/set/10.20.30.40
+  ```
+##### Un-Block IP
+```
+curl http://127.0.0.1:3000/api/unset/10.20.30.40
+```
+##### Check IP
+```
+curl http://127.0.0.1:3000/api/get/10.20.30.40
+```
+
 ---------
 
 ### Statup Options
