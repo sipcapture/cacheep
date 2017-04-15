@@ -34,3 +34,9 @@ curl http://127.0.0.1:3000/api/unset/4416329600
 dig -t NAPTR 0.0.6.9.2.3.6.1.4.4.e164.arpa @127.0.0.1
 ```
 
+
+## TODO
+
+* Refine API
+* ENUM Params from Cache
+* GunDB Support
