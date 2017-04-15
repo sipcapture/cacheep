@@ -5,33 +5,36 @@ var cache = require('./db');
 
 var dns_port = process.env.DNS_PORT || 53;
 var dns_host = process.env.DNS_HOST || '127.0.0.1';
+var dns_root = process.env.DNS_ROOT || 'e164.arpa'
 
 dns_server.on('request', function (request, response) {
 
   /* Parse Query Name */
   var name = request.question[0].name;
-  if (!name || !name.endsWith("e164.arpa")) { response.send(); return; }
+  if (!name || !name.endsWith(DNS_ROOT)) { response.send(); return; }
   /* Resolve Target Number */
-  var target = name.replace("e164.arpa","").split(".").join("").split("").reverse().join("");
+  var target = name.replace(DNS_ROOT,"").split(".").join("").split("").reverse().join("");
 
-   if(cache.get(target)){
-	  // NULL
-	  response.additional.push(dns.NAPTR({
-	          ttl: 300,
-	          name: name,
-	          order: 10,
-	          preference: 100,
-	          flags: 'u',
-	          service: 'E2U+sip',
-	          regexp: '!^.*$!sip:'+target+'@invalid!',
-	          replacement:''
-	  }));
-	  response.send();
+  for (var i = target.length, len = 0; i > len; i--) {
+     if (cache.get(target.substring(0,i))) {
+		// console.log('MATCH!',target);
+		response.additional.push(dns.NAPTR({
+		          ttl: 300,
+		          name: name,
+		          order: 10,
+		          preference: 100,
+		          flags: 'u',
+		          service: 'E2U+sip',
+		          regexp: '!^.*$!sip:'+target+'@invalid!',
+		          replacement:''
+		}));
+		response.send();
+		return;
+     }
+  }
 
-   } else {
-	  // 404
-	  response.send();
-   }
+  response.send();
+
 });
 
 dns_server.on('error', function (err, buff, req, res) {
@@ -40,7 +43,7 @@ dns_server.on('error', function (err, buff, req, res) {
 
 dns_server.serve(dns_port,dns_host);
 
-// module.exports = dns_server
+/* Export */
 
 module.exports = app => dns_server;
 

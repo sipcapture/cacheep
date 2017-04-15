@@ -6,12 +6,12 @@ Data is used to manage a real-time blacklist (or anything, really) feeding an EN
 ### Example
 ##### Block Destination for 60 seconds
 ```
-curl http://127.0.0.1:3000/api/set/4416329600/blocked/60000
+curl http://127.0.0.1:3000/api/set/4416/blocked/60000
 
 ```
 ##### Un-Block Destionation
 ```
-curl http://127.0.0.1:3000/api/unset/4416329600
+curl http://127.0.0.1:3000/api/unset/4416
 
 ```
 
@@ -24,8 +24,9 @@ dig -t NAPTR 0.0.6.9.2.3.6.1.4.4.e164.arpa @127.0.0.1
 ### Statup Options
 * ```PORT```: Express API Port _(default: 3000)_
 * ```MAX```:  LRU Max Cache Size _(default: 10000)_
-* ```DNS_PORT```:  LRU Max Cache Size _(default: 54)_
-* ```DNS_HOST```:  LRU Max Cache Size _(default: 127.0.0.1)_
+* ```DNS_PORT```:  DNS Server Port _(default: 54)_
+* ```DNS_HOST```:  DNS Server Host _(default: 127.0.0.1)_
+* ```DNS_ROOT```:  DNS Lookup Root _(default: e164.arpa)_
 
 ### API Calls
 
