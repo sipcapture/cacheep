@@ -55,7 +55,7 @@ curl http://127.0.0.1:3000/api/get/10.20.30.40
 |---	           |---	  |---  |
 | ```PORT```     | Express API Port   | _(default: 3000)_      |
 | ```MAX```      | LRU Max Cache Size | _(default: 10000)_     |
-| ```FILE```     | LRU Cache File     | _(default: disabled)_  |
+| ```FILE```     | LRU Cache Filepath | _(default: disabled)_  |
 | ```DNS_PORT``` | DNS Server Port    | _(default: 54)_        |
 | ```DNS_HOST``` | DNS Server Host    | _(default: 127.0.0.1)_ |
 | ```DNS_ROOT``` | DNS Lookup Root    | _(default: e164.arpa)_ |
