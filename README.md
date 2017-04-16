@@ -2,11 +2,11 @@
 <img src="http://i.imgur.com/Lnmza1J.png" width=100 />
 
 
-# CACHEEP: LRU-CACHE API + ENUM DNS Server
+# CACHEEP: Least-Recently-Used Cache API
 
 Cacheep exposes an [LRU-CACHE](https://www.npmjs.com/package/lru-cache) with a simple Express REST API, happily managing simple key/values pairs or full JSON objects with custom expirations, automatically deleting the least-recently-used items. Data can be used to manage anything real-time, for correlation or blacklisting _(anything, really)_ to be consumed via broadly available interfaces such as REST, DNS/ENUM and more upcoming.
 
-* status: experimental
+* status: _experimental_
 
 ### Usage
 ```
@@ -17,7 +17,7 @@ npm start
 ```
 sudo MAX=100000 PORT=53 FILE='./data.json' npm start
 ```
-
+---------
 
 ### ENUM Example
 ##### Block Destination for 60 seconds
