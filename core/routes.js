@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 
 var cache = require('./db')
 
-var GUN = false;
+var GUN = process.env.GUN || false;
 if (GUN) {
 	var gun = require('./gundb')
 	var data = gun.get('data')
