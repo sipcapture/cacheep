@@ -22,7 +22,7 @@ sudo MAX=100000 PORT=53 FILE='./data.json' npm start
 ### ENUM Example
 ##### Block Destination for 60 seconds
 ```
-curl http://127.0.0.1:3000/api/set/4416/blocked/60000
+curl http://127.0.0.1:3000/api/set/4416/true/60000
 ```
 #### ENUM Lookup
 ```
@@ -35,7 +35,7 @@ dig -t NAPTR 0.0.6.9.2.3.6.1.4.4.e164.arpa @127.0.0.1
 ##### Block IP for 60 seconds w/ JSON Body
 ```
 curl -X POST -H "Content-type: application/json" \
-  -d '{"message": "scanner"}' \
+  -d '{"message": "malicious scanner"}' \
   http://127.0.0.1:3000/api/set/10.20.30.40/60000
   ```
 ##### Un-Block IP
