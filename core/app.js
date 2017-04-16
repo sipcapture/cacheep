@@ -1,5 +1,5 @@
 var express = require('express')
-var debug = require('debug')('express-lru:server')
+var debug = require('debug')('cacheep:server')
 var app = express()
 var port = process.env.PORT || 3000
 
