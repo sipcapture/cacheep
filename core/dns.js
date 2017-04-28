@@ -15,7 +15,7 @@ dns_server.on('request', function (request, response) {
   var dns_type = parseInt(request.question[0].type);
   if (!name || !name.endsWith(dns_root)) { response.send(); return; }
   
-  console.log("TYPE",dns_type);
+  //console.log("TYPE",dns_type);
   
   if (dns_type != 1 && dns_type != 35) { response.send(); return; }
   /* Resolve Target Number */
@@ -41,7 +41,7 @@ dns_server.on('request', function (request, response) {
 		
 		if(dns_type == 1) 
 		{
-		    response.additional.push(dns.A({
+		    response.answer.push(dns.A({
 		              ttl: 300,
 		              name: name,
 		              address: target
