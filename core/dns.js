@@ -13,7 +13,9 @@ dns_server.on('request', function (request, response) {
   var name = request.question[0].name;
   if (!name || !name.endsWith(dns_root)) { response.send(); return; }
   /* Resolve Target Number */
-  var target = name.replace(dns_root,"").split(".").join("").split("").reverse().join("");
+  //var target = name.replace(dns_root,"").split(".").join("").split("").reverse().join("");
+  var target = name.replace(dns_root,"").split(".").reverse().filter(Number).join(".");
+
 
   for (var i = target.length, len = 0; i > len; i--) {
      if (cache.get(target.substring(0,i))) {
