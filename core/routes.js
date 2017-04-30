@@ -254,12 +254,15 @@ router.get('/api/teardown/user/from/:user/:minutes?', (req, res) => {
         };
 
 	hepic.get(postData, function(md){
-		 if (!md) { res.sendStatus(404); return; }
-		 var tears = teardown.parse(md);
-		 teardown.send(md.source_ip,md.source_port,tears.aleg);
-		 teardown.send(md.destination_ip,md.destination_port,tears.bleg);
-		 res.sendStatus(200);
+		 if (!md) { res.sendStatus(404); res.end(); return; }
+		 else {
+			 var tears = teardown.parse(md);
+			 teardown.send(md.source_ip,md.source_port,tears.aleg);
+			 teardown.send(md.destination_ip,md.destination_port,tears.bleg);
+		}
 	});
+
+	res.sendStatus(200);
 
 })
 
