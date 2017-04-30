@@ -220,17 +220,19 @@ router.post('/api/load', (req, res) => {
 
 
 router.post('/api/teardown/user', (req, res) => {
+if (HEPIC) {
 	var postData = req.body;
+	hepic.get(postData, function(md){
+		 if (!md) { res.sendStatus(404); return; }
+		 else { UdpSend(md); res.sendStatus(200); }
+	});
 
-	hepic.get(postData,function(gotData,b){
-		console.log('DATA:',gotData,b);
-		res.sendStatus(200);
-	})
+} else { res.sendStatus(500); }
 
 })
 
-router.get('/api/teardown/user/from/:user/:minutes?', (req, res) => {
-
+router.get('/api/teardown/user/from/:user/:minutes?/:timezone?', (req, res) => {
+if (HEPIC) {
 	var seconds = req.params.minutes ? (60 * req.params.minutes) : (60 * 60);
 	var postData = {
                     	param: {
@@ -243,7 +245,7 @@ router.get('/api/teardown/user/from/:user/:minutes?', (req, res) => {
                         	    location:{},
                         	    timezone:{
                                       value:-120,
-                                      name: "GMT+2 EET",
+                                      name: req.params.timezone ? req.params.timezone : "GMT+2 EET",
                                       offset:"+0200"
                                     }
                                },
@@ -255,14 +257,11 @@ router.get('/api/teardown/user/from/:user/:minutes?', (req, res) => {
 
 	hepic.get(postData, function(md){
 		 if (!md) { res.sendStatus(404); res.end(); return; }
-		 else {
-			 var tears = teardown.parse(md);
-			 teardown.send(md.source_ip,md.source_port,tears.aleg);
-			 teardown.send(md.destination_ip,md.destination_port,tears.bleg);
-		}
+		 else { UdpSend(md); res.sendStatus(200); }
 	});
 
-	res.sendStatus(200);
+
+} else { res.sendStatus(500); }
 
 })
 
@@ -271,4 +270,13 @@ router.get('/api/teardown/user/from/:user/:minutes?', (req, res) => {
 
 module.exports = app => {
   app.use('/', router)
+}
+
+
+/* Shared Functions */
+
+var UdpSend = function(md){
+			 var tears = teardown.parse(md);
+			 teardown.send(md.source_ip,md.source_port,tears.aleg);
+			 teardown.send(md.destination_ip,md.destination_port,tears.bleg);
 }
