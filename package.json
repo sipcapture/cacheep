@@ -13,7 +13,7 @@
     "body-parser": "1.17.1",
     "lru-cache": "^4.0.2",
     "node-dns": "^0.1.0",
-    "teardown-js": "^0.0.2",
+    "teardown-js": "^0.0.3",
     "redis": "^2.7.0",
     "morgan": "^1.8.1"
   },
