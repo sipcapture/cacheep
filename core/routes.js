@@ -92,14 +92,24 @@ router.get('/api/set/:key/:value/:ttl', (req, res) => {
 
 router.get('/api/get/:key/:value?', (req, res) => {
   try {
-	if (req.params.value) res.send( (cache.get(req.params.key))[req.params.value] )
-	else res.send(cache.get(req.params.key))
+        if (req.params.value) res.send( (cache.get(req.params.key))[req.params.value] )
+        else {
+            var resp = {};
+            var data = cache.get(req.params.key);
+            if(data === undefined ) resp.blocked = false;
+            else {
+                resp.blocked = true;
+                resp.data = data;
+            }
+            res.send(resp);
+        }
 
   } catch(e) {
-	console.log(e)
-	res.sendStatus(500);
+        console.log(e)
+        res.sendStatus(500);
   }
 })
+
 
 /* 	PEEK DATA 
 	Returns the key value (or undefined if not found) without updating the "recently used"-ness of the key.
