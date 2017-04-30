@@ -9,6 +9,13 @@ var cache = require('./db')
 
 if(REDIS_ENABLE) var redisdb = require('./redis-db')
 
+var HEPIC = process.env.HEPIC || false;
+if (HEPIC) {
+	var teardown = require('./teardown')
+	var hepic = require('./hepic')
+	hepic.auth();
+}
+
 var GUN = process.env.GUN || false;
 if (GUN) {
 	var gun = require('./gundb')
@@ -200,6 +207,52 @@ router.post('/api/load', (req, res) => {
 	res.sendStatus(500)
   }
 })
+
+
+router.post('/api/teardown/user', (req, res) => {
+	var postData = req.body;
+
+	hepic.get(postData,function(gotData,b){
+		console.log('DATA:',gotData,b);
+		res.sendStatus(200);
+	})
+
+})
+
+router.get('/api/teardown/user/from/:user/:minutes?', (req, res) => {
+
+	var seconds = req.params.minutes ? (60 * req.params.minutes) : (60 * 60);
+	var postData = {
+                    	param: {
+                                    transaction:{},
+                                    limit:100,
+                                    search: {
+                                      from_user:req.params.user,
+                                      status: 5
+                                    },
+                        	    location:{},
+                        	    timezone:{
+                                      value:-120,
+                                      name: "GMT+2 EET",
+                                      offset:"+0200"
+                                    }
+                               },
+                        timestamp:{
+                                  from: new Date( (new Date()).getTime() - 1000 * seconds ).getTime(),
+                                  to: new Date().getTime()
+                                }
+        };
+
+	hepic.get(postData, function(md){
+		 if (!md) { res.sendStatus(404); return; }
+		 var tears = teardown.parse(md);
+		 teardown.send(md.source_ip,md.source_port,tears.aleg);
+		 teardown.send(md.destination_ip,md.destination_port,tears.bleg);
+		 res.sendStatus(200);
+	});
+
+})
+
 
 /* Export */
 
