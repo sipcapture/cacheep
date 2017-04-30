@@ -4,7 +4,9 @@
 
 # CACHEEP: Least-Recently-Used Cache API
 
-Cacheep exposes an [LRU-CACHE](https://www.npmjs.com/package/lru-cache) with a simple Express REST API, happily managing simple key/values pairs or full JSON objects with custom expirations, automatically deleting the least-recently-used items. Data can be used to manage anything real-time, for correlation or blacklisting _(anything, really)_ to be consumed via broadly available interfaces such as REST, DNS/ENUM and more upcoming.
+Cacheep is a potentially harmful tool built around an [LRU-CACHE](https://www.npmjs.com/package/lru-cache) with a simple Express REST API attached. It's main function is managing simple key/values pairs or full JSON objects with custom TTL/expirations, automatically dropping the least-recently-used items. Behind the scenes, it can syncronize data, trigger actions and fill in many roles where data can be used to manage anything real-time, for correlation, blacklisting, interactive actions _(anything, really)_ to be consumed via broadly available interfaces such as REST, DNS/ENUM and more upcoming.
+
+__Cacheep__ can also leverage integration with the __HEPIC__ Stack to exchange and retrieve realtime data.
 
 * status: _experimental_
 
