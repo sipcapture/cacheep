@@ -13,6 +13,7 @@
     "body-parser": "1.17.1",
     "lru-cache": "^4.0.2",
     "node-dns": "^0.1.0",
+    "redis": "^2.7.0",
     "morgan": "^1.8.1"
   },
   "devDependencies": {

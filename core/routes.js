@@ -3,7 +3,11 @@ var debug = require('debug')('cacheep:routes')
 var router = express.Router()
 var bodyParser = require('body-parser');
 
+var REDIS_ENABLE = true;
+
 var cache = require('./db')
+
+if(REDIS_ENABLE) var redisdb = require('./redis-db')
 
 var GUN = process.env.GUN || false;
 if (GUN) {
@@ -35,8 +39,14 @@ router.get('/ping', (req, res) => {
 router.post('/api/set/:key/:ttl?', (req, res) => {
   try {
 	if (req.body) {
-		if (req.params.ttl) cache.set(req.params.key, req.body, req.params.ttl);
-		else cache.set(req.params.key, req.body);
+		if (req.params.ttl) {
+		    cache.set(req.params.key, req.body, req.params.ttl);
+		    if(REDIS_ENABLE) redisdb.set(req.params.key, JSON.stringify(req.body), 'EX', req.params.ttl/1000);
+                }
+		else {
+		    cache.set(req.params.key, req.body);
+		    if(REDIS_ENABLE) redisdb.set(req.params.key, JSON.stringify(req.body));
+                }
 		res.sendStatus(200)
 	} else { res.sendStatus(500) }
   } catch(e) {
@@ -52,6 +62,9 @@ router.post('/api/set/:key/:ttl?', (req, res) => {
 router.get('/api/set/:key/:value', (req, res) => {
   try {
 	cache.set(req.params.key, req.params.value);
+
+	if(REDIS_ENABLE) redisdb.set(req.params.key, req.params.value);
+	
 	res.sendStatus(200)
   } catch(e) {
 	console.log(e)
@@ -62,6 +75,9 @@ router.get('/api/set/:key/:value', (req, res) => {
 router.get('/api/set/:key/:value/:ttl', (req, res) => {
   try {
 	cache.set(req.params.key, req.params.value, req.params.ttl);
+
+  	if(REDIS_ENABLE) redisdb.set(req.params.key, req.params.value, 'EX', req.params.ttl/1000);
+
 	res.sendStatus(200)
   } catch(e) {
 	console.log(e)
