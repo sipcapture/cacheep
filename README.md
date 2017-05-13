@@ -24,74 +24,20 @@ sudo MAX=100000 PORT=53 FILE='./data.json' npm start
 ```
 ---------
 
-### Examples
-Check the [Wiki](https://github.com/sipcapture/cacheep/wiki) for full Examples
-
-### ENUM Example
-##### Block Destination for 60 seconds
-```
-curl http://127.0.0.1:3000/api/set/4416/true/60000
-```
-#### ENUM Lookup
-```
-dig -t NAPTR 0.0.6.9.2.3.6.1.4.4.e164.arpa @127.0.0.1
-```
----------
-
-### IP Example
-
-##### Block IP for 60 seconds w/ JSON Body
-```
-curl -X POST -H "Content-type: application/json" \
-  -d '{"message": "malicious scanner"}' \
-  http://127.0.0.1:3000/api/set/10.20.30.40/60000
-  ```
-##### Un-Block IP
-```
-curl http://127.0.0.1:3000/api/unset/10.20.30.40
-```
-##### Check IP
-```
-curl http://127.0.0.1:3000/api/get/10.20.30.40
-```
-
----------
-
-### Statup Options
-
-| ENV  	    | Description  	| Notes  |
-|---	           |---	  |---  |
-| ```PORT```     | Express API Port   | _(default: 3000)_      |
-| ```MAX```      | LRU Max Cache Size | _(default: 10000)_     |
-| ```FILE```     | LRU Cache Filepath | _(default: disabled)_  |
-| ```DNS_PORT``` | DNS Server Port    | _(default: 54)_        |
-| ```DNS_HOST``` | DNS Server Host    | _(default: 127.0.0.1)_ |
-| ```DNS_ROOT``` | DNS Lookup Root    | _(default: e164.arpa)_ |
-
-
-### API Calls
-
-| Call  	    | Format  	| Response  |
-|---	    |---	|---  |
-| ```SET```  	  | ```/api/set/{key}/{value}/{seconds * 1000}```  	| ```{status}``` |
-| ```GET```  	  | ```/api/get/{key}```  	| ```{value}``` |
-| ```UNSET```  	| ```/api/unset/{key}```  	| ```{status}``` |
-
-
+### Documentation
+Check the [Wiki](https://github.com/sipcapture/cacheep/wiki) for Documentation and full Examples
 
 
 
 ## TODO
 
 * Express Auth
-* Refine API
+* Refine API Structure
 * ENUM Params from Cache
-
-## ROADMAP 
-
 * GunDB Support _(distribution, two-way updates)_
 
 
 # Mailing List
+Our target is to create a simple, powerful, lightweight tool anyone can use to protect their setup, big or small.
 Join us discussing and improving our project:<br>
 * https://groups.google.com/forum/#!forum/voip-dbl-talk
