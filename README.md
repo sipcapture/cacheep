@@ -11,6 +11,8 @@ __Cacheep__ can also leverage integration with the __HEPIC__ Stack to exchange a
 
 * status: _experimental_
 
+<img src="http://i.imgur.com/d5wqN19.gif" />
+
 ### Usage
 ```
 npm install
@@ -21,6 +23,9 @@ npm start
 sudo MAX=100000 PORT=53 FILE='./data.json' npm start
 ```
 ---------
+
+### Examples
+Check the [Wiki](https://github.com/sipcapture/cacheep/wiki) for full Examples
 
 ### ENUM Example
 ##### Block Destination for 60 seconds
