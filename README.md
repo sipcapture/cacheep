@@ -2,8 +2,6 @@
 <img src="https://cdn.pixabay.com/photo/2014/04/03/11/59/sheep-312776_960_720.png" width=100 />
 
 
-# Mail List
-https://groups.google.com/forum/#!forum/voip-dbl-talk
 
 # CACHEEP: Least-Recently-Used Cache API
 
@@ -87,3 +85,8 @@ curl http://127.0.0.1:3000/api/get/10.20.30.40
 ## ROADMAP 
 
 * GunDB Support _(distribution, two-way updates)_
+
+
+# Mailing List
+Join us discussing and improving our project:<br>
+* https://groups.google.com/forum/#!forum/voip-dbl-talk
