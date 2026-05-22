@@ -10,7 +10,7 @@
   "dependencies": {
     "debug": "^2.6.3",
     "express": "^4.15.2",
-    "body-parser": "1.17.1",
+    "body-parser": "1.20.3",
     "lru-cache": "^4.0.2",
     "node-dns": "^0.1.0",
     "teardown-js": "^0.0.3",
