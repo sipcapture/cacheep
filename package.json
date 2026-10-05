@@ -15,7 +15,7 @@
     "node-dns": "^0.1.0",
     "teardown-js": "^0.0.3",
     "request": "^2.15.11",
-    "redis": "^2.7.0",
+    "redis": "^3.1.1",
     "morgan": "^1.8.1"
   },
   "devDependencies": {
