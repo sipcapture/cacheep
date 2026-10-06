@@ -10,6 +10,7 @@
   "dependencies": {
     "debug": "^2.6.3",
     "express": "^4.15.2",
+    "express-rate-limit": "^8.7.0",
     "body-parser": "1.20.6",
     "lru-cache": "^4.0.2",
     "node-dns": "^0.1.0",

@@ -2,8 +2,21 @@ var express = require('express')
 var debug = require('debug')('cacheep:routes')
 var router = express.Router()
 var bodyParser = require('body-parser');
+var rateLimit = require('express-rate-limit');
 
 var REDIS_ENABLE = true;
+
+/* Rate limiting for the write endpoints, which touch the LRU cache and Redis.
+   Configurable via env so a high-volume deployment can raise or disable it. */
+var RATE_LIMIT_WINDOW_MS = parseInt(process.env.RATE_LIMIT_WINDOW_MS, 10) || 60 * 1000;
+var RATE_LIMIT_MAX = parseInt(process.env.RATE_LIMIT_MAX, 10) || 1000;
+
+var writeLimiter = rateLimit({
+  windowMs: RATE_LIMIT_WINDOW_MS,
+  limit: RATE_LIMIT_MAX,
+  standardHeaders: true,
+  legacyHeaders: false
+});
 
 var cache = require('./db')
 
@@ -43,7 +56,7 @@ router.get('/ping', (req, res) => {
 	Set Key Value or Key {Object} with optional TTL parameter.
 */
 
-router.post('/api/set/:key/:ttl?', (req, res) => {
+router.post('/api/set/:key/:ttl?', writeLimiter, (req, res) => {
   try {
 	if (req.body) {
 		if (req.params.ttl) {
@@ -66,7 +79,7 @@ router.post('/api/set/:key/:ttl?', (req, res) => {
 	Set Key Value or Key {Object} with optional TTL parameter.
 */
 
-router.get('/api/set/:key/:value', (req, res) => {
+router.get('/api/set/:key/:value', writeLimiter, (req, res) => {
   try {
 	cache.set(req.params.key, req.params.value);
 
@@ -79,7 +92,7 @@ router.get('/api/set/:key/:value', (req, res) => {
   }
 })
 
-router.get('/api/set/:key/:value/:ttl', (req, res) => {
+router.get('/api/set/:key/:value/:ttl', writeLimiter, (req, res) => {
   try {
 	cache.set(req.params.key, req.params.value, req.params.ttl);
 
@@ -99,7 +112,7 @@ router.get('/api/set/:key/:value/:ttl', (req, res) => {
 
 router.get('/api/get/:key/:value?', (req, res) => {
   try {
-        if (req.params.value) res.send( (cache.get(req.params.key))[req.params.value] )
+        if (req.params.value) res.json( (cache.get(req.params.key))[req.params.value] )
         else {
             var resp = {};
             var data = cache.get(req.params.key);
